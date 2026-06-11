@@ -1,15 +1,14 @@
 import math
-import re
 import time
-import os
-import pytest
 from time import sleep
 
-from selenium import webdriver
+import pytest
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
+from homework import test_fixture3
+
 
 #
 # link = "http://suninjuly.github.io/simple_form_find_task.html"
@@ -44,7 +43,6 @@ from selenium.webdriver.support import expected_conditions as EC
 #     time.sleep(5)
 #     # закрываем браузер после всех манипуляций
 #     browser.quit()
-
 # link = "http://suninjuly.github.io/find_link_text"
 # try:
 #     browser = webdriver.Chrome()
@@ -66,7 +64,6 @@ from selenium.webdriver.support import expected_conditions as EC
 #
 # finally:
 #     browser.quit()
-
 # В этой задаче вам нужно заполнить форму (http://suninjuly.github.io/huge_form.html).
 # С помощью неё отдел маркетинга компании N захотел собрать подробную информацию о пользователях своего продукта.
 # В награду за заполнение формы становится доступен код на скидку. Но маркетологи явно переусердствовали,
@@ -90,10 +87,7 @@ from selenium.webdriver.support import expected_conditions as EC
 #     time.sleep(30)
 #     # закрываем браузер после всех манипуляций
 #     browser.quit()
-
 # не забываем оставить пустую строку в конце файла
-
-
 # link = " http://suninjuly.github.io/find_xpath_form"
 # try:
 #     browser = webdriver.Chrome()
@@ -115,12 +109,7 @@ from selenium.webdriver.support import expected_conditions as EC
 #     time.sleep(30)
 #     # закрываем браузер после всех манипуляций
 #     browser.quit()
-
 # не забываем оставить пустую строку в конце файла
-
-
-
-
 # try:
 #     link = "http://suninjuly.github.io/registration2.html"
 #     browser = webdriver.Chrome()
@@ -155,7 +144,6 @@ from selenium.webdriver.support import expected_conditions as EC
 #     time.sleep(10)
 #     # закрываем браузер после всех манипуляций
 #     browser.quit()
-
 # def calc(x):
 #     return str(math.log(abs(12 * math.sin(int(x)))))
 #
@@ -184,10 +172,6 @@ from selenium.webdriver.support import expected_conditions as EC
 #     time.sleep(10)
 #         # закрываем браузер после всех манипуляций
 #     browser.quit()
-
-
-
-
 # try:
 #     def calc(a, b):
 #         return str(int(a) + int(b))
@@ -210,8 +194,6 @@ from selenium.webdriver.support import expected_conditions as EC
 #     time.sleep(10)
 #         # закрываем браузер после всех манипуляций
 #     browser.quit()
-
-
 # try:
 #     browser = webdriver.Chrome()
 #     link = "https://SunInJuly.github.io/execute_script.html"
@@ -248,11 +230,6 @@ from selenium.webdriver.support import expected_conditions as EC
 #     sleep(5)
 # finally:
 #     browser.quit()
-
-
-
-
-
 # current_dir = os.path.abspath(os.path.dirname(__file__))
 # file_path = os.path.join(current_dir, 'file.txt')
 #
@@ -274,8 +251,6 @@ from selenium.webdriver.support import expected_conditions as EC
 #     sleep(4)
 # finally:
 #     browser.quit()
-
-
 # def calc(x):
 #     return str(math.log(abs(12 * math.sin(int(x)))))
 #
@@ -299,8 +274,6 @@ from selenium.webdriver.support import expected_conditions as EC
 #
 # finally:
 #     browser.quit()
-
-
 # def calc(x):
 #     return str(math.log(abs(12 * math.sin(int(x)))))
 #
@@ -323,7 +296,6 @@ from selenium.webdriver.support import expected_conditions as EC
 #     sleep(4)
 # finally:
 #     browser.quit()
-
 # def calc(x):
 #      return str(math.log(abs(12 * math.sin(int(x)))))
 #
@@ -347,3 +319,56 @@ from selenium.webdriver.support import expected_conditions as EC
 #     sleep(5)
 # finally:
 #     browser.quit()
+# links = [
+#     "https://stepik.org/lesson/236895/step/1",
+#     "https://stepik.org/lesson/236896/step/1",
+#     "https://stepik.org/lesson/236897/step/1",
+#     "https://stepik.org/lesson/236898/step/1",
+#     "https://stepik.org/lesson/236899/step/1",
+#     "https://stepik.org/lesson/236903/step/1",
+#     "https://stepik.org/lesson/236904/step/1",
+#     "https://stepik.org/lesson/236905/step/1"
+# ]
+#
+
+
+class TestLink:
+    sp = ""
+    # links = "https://stepik.org/lesson/236895/step/1"
+    links = [
+        "https://stepik.org/lesson/236895/step/1",
+        # "https://stepik.org/lesson/236896/step/1",
+        # "https://stepik.org/lesson/236897/step/1",
+        # "https://stepik.org/lesson/236898/step/1",
+        # "https://stepik.org/lesson/236899/step/1",
+        # "https://stepik.org/lesson/236903/step/1",
+        # "https://stepik.org/lesson/236904/step/1",
+        # "https://stepik.org/lesson/236905/step/1"
+    ]
+    @pytest.mark.parametrize("link", links)
+    def test_link(self, browser, link):
+        browser.get(link)
+        sleep(5)
+        # wait = WebDriverWait(browser, 10)
+        # but = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="ember513"]')))
+        button = browser.find_element(By.CSS_SELECTOR, ".navbar__auth_login")
+        button.click()
+        log = browser.find_element(By.CSS_SELECTOR, '.ember-text-field')
+        log.send_keys(test_fixture3.l)
+        passw= browser.find_element(By.NAME, "password")
+        passw.send_keys(test_fixture3.p)
+        but_ok= browser.find_element(By.CLASS_NAME, "sign-form__btn")
+        but_ok.click()
+        answer = str(math.log(int(time.time())))
+        print(answer)
+        inp = browser.find_element(By.CSS_SELECTOR, ".ember-text-area")
+        inp.send_keys(answer)
+        wait = WebDriverWait(browser, 10)
+        knopka = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".attempt-wrapper-buttons__button")))
+        browser.execute_script("arguments[0].click();", knopka)
+        asert = browser.find_element(By.CSS_SELECTOR, '.smart-hints__hint')
+        asert_text = WebDriverWait(browser, 10).until(EC.visibility_of_element_located(asert)).text
+        assert asert.text == asert_text
+
+
+
